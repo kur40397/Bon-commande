@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+
+        <menuitem
+                name="Bon Commande"
+                id="Module_Achat_root"
+                sequence="5"
+                web_icon="bon_commande,static/description/purchase.png"/>
+
+        <menuitem name="Bon commande" id="Bon_commande_menu" parent="Module_Achat_root" action="bon_commande_action_window"/>
+
+    </data>
+</odoo>

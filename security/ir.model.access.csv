@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_bon_commande_bon_commande,bon_commande.bon_commande,model_bon_commande_bon_commande,bon_commande.group_bon_commande_user,1,1,1,1
+access_bon_commande_ligne_bon_commande,bon_commande.ligne_bon_commande,model_bon_commande_ligne_bon_commande,bon_commande.group_bon_commande_user,1,1,1,1

@@ -1,0 +1,124 @@
+<odoo>
+  <data>
+
+    <record model="ir.ui.view" id="bon_commande_view_list">
+      <field name="name">bon_commande.bon_commande.list</field>
+      <field name="model">bon_commande.bon_commande</field>
+      <field name="arch" type="xml">
+        <list>
+          <field name="reference"/>
+          <field name="fournisseur"/>
+          <field name="date_commande"/>
+          <field name="date_reception"/>
+          <field name="total_ht"/>
+          <field name="total_ttc"/>
+            <!-- etiquette coloré -->
+          <field name="etat" widget="badge"/>
+        </list>
+      </field>
+    </record>
+
+     <record model="ir.ui.view" id="bon_commande_view_form">
+      <field name="name">bon_commande.bon_commande.form</field>
+      <field name="model">bon_commande.bon_commande</field>
+      <field name="arch" type="xml">
+        <form>
+            <header>
+                <button name="methode_changer_state" string="valider" class="oe_highlight" type="object" invisible="etat=='valide'" />
+                <button
+                        name="%(bon_commande.action_bon_commande_report)d"
+                        type="action"
+                        string="Imprimer le bon de commande"
+                        invisible="etat=='draft'"
+                />
+
+                <field name="etat" widget="statusbar"/>
+            </header>
+           <sheet>
+             <!--c'est ou je définie la structure du formulaire -->
+              <div class="oe_title">
+                    <h1>
+                        <field name="reference"/>
+                    </h1>
+              </div>
+           <group>
+             <group>
+                 <field name="fournisseur"/>
+                 <field name="date_commande"/>
+                 <field name="date_reception"/>
+              </group>
+              <group>
+                 <field name="currency_id" invisible="1"/>
+                 <field name="total_ht" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                 <field name="total_ttc" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+              </group>
+             </group>
+             <notebook>
+                <page string="Ligne de commandes">
+                  <field name="ligne_bon_commande_ids">
+                      <list editable="bottom">
+                          <field name="reference"/>
+                         <field name="product_id" />
+                         <field name="quantite" />
+                         <field name="prix_unitaire" />
+                         <field name="prix_total_ligne" />
+                      </list>
+                  </field>
+                </page>
+               <page string="info supplémentaire">
+                 <field name="commentaire" widget="html"/>
+               </page>
+             </notebook>
+           </sheet>
+           <chatter open_attachments="True"/>
+        </form>
+      </field>
+    </record>
+
+ <!-- ce model permet d'afficher les view du model bon_commande.bon_commande -->
+    <record model="ir.actions.act_window" id="bon_commande_action_window">
+      <field name="name">Bon commande</field>
+      <field name="res_model">bon_commande.bon_commande</field>
+      <field name="view_mode">list,form</field>
+      <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                    Aucun bon de commande ici
+            </p>
+      </field>
+    </record>
+
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="bon_commande.action_server">
+      <field name="name">bon_commande server</field>
+      <field name="model_id" ref="model_bon_commande_bon_commande"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "list,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="bon_commande" id="bon_commande.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="bon_commande.menu_1" parent="bon_commande.menu_root"/>
+    <menuitem name="Menu 2" id="bon_commande.menu_2" parent="bon_commande.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="bon_commande.menu_1_list" parent="bon_commande.menu_1"
+              action="bon_commande.action_window"/>
+    <menuitem name="Server to list" id="bon_commande" parent="bon_commande.menu_2"
+              action="bon_commande.action_server"/>
+-->
+  </data>
+</odoo>

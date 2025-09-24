@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--un fichier pour décrire un format de la sequence-->
+    <data noupdate="1">
+        <record id="ir_sequence_bon_commande_bon_commande" model="ir.sequence">
+           <field name="name">bon_commande.bon_commande.sequence</field>
+           <field name="code">bon_commande.bon_commande</field>
+           <field name="prefix">BC</field>
+           <field name="padding">5</field>
+           <field name="number_next">1</field>
+           <field name="number_increment">1</field>
+       </record>
+    </data>
+</odoo>

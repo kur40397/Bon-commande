@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+      <!--action rapport qui fait le lien entre le rapport et button-->
+    <template id="bon_commande_template">
+            <!-- conteneur de cette page -->
+           <!-- t-call="web.html_container" ==> heritage du qweb générique , définie la structure basic d'un doc-->
+            <t t-call="web.html_container">
+
+                <t t-foreach="docs" t-as="doc">
+                    <!-- la mise en page (l'entete et le pied) -->
+                    <t t-call="web.external_layout">
+                        <!--determine le contenu de la page-->
+                        <div class="page">
+
+                          <h1>Bon de commande N :<span t-field="doc.reference"/></h1>
+                            <br></br>
+                            <div>
+                                <h6>Fournisseur :</h6>
+                                <span t-field="doc.fournisseur.name"/>
+                                <br/>
+                                <h6>Date Commande :</h6>
+                                <span t-field="doc.date_commande"/>
+                                <br/>
+                                <h6>Date Reception :</h6>
+                                <span t-field="doc.date_reception"/>
+                                <br/>
+                                <br/>
+                            </div>
+                            <table class="table table-sm table-bordered">
+                                <thead>
+                                    <th style="text-align:center">Reference</th>
+                                    <th style="text-align:center">Produit</th>
+                                    <th style="text-align:center">Quantite</th>
+                                    <th style="text-align:center">Prix unitaire</th>
+                                    <th style="text-align:center">prix HT</th>
+                                </thead>
+                                <tbody>
+
+                                  <t t-foreach="doc.ligne_bon_commande_ids" t-as="prod">
+                                      <tr>
+                                        <td>
+                                            <span  style="text-align:center" t-field="prod.reference"/>
+                                        </td>
+                                        <td>
+                                            <span  style="text-align:center" t-field="prod.product_id.name"/>
+                                        </td>
+                                        <td>
+                                            <span  style="text-align:center" t-field="prod.quantite"/>
+                                        </td>
+                                        <td>
+                                            <span  style="text-align:center" t-field="prod.prix_unitaire"/>
+                                        </td>
+                                        <td>
+                                            <span  style="text-align:center" t-field="prod.prix_total_ligne"/>
+                                        </td>
+                                      </tr>
+                                  </t>
+                                </tbody>
+                            </table>
+                            <table class="table table-sm table-bordered">
+                                <thead>
+                                    <th style="text-align:center">total HT</th>
+                                    <th style="text-align:center">TVA</th>
+                                    <th style="text-align:center">TOTAL TTC</th>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <span style="text-align:center" t-field="doc.total_ht"/>
+                                        </td>
+                                        <td>
+                                            20%
+                                        </td>
+                                        <td>
+                                            <span t-field="doc.total_ttc" style="text-align:center" />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </t>
+                </t>
+            </t>
+    </template>
+    <record id="action_bon_commande_report" model="ir.actions.report">
+        <field name="name">Bon commande Report</field>
+        <field name="model">bon_commande.bon_commande</field>
+        <field name="report_type">qweb-pdf</field>
+        <!--c'est la manière dont on lie l'action du rapport avec ton document-->
+        <field name="report_name">bon_commande.bon_commande_template</field>
+        <field name="report_file">bon_commande.bon_commande_template</field>
+
+
+    </record>
+
+
+
+    </data>
+</odoo>

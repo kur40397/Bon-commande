@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+       <record id="group_bon_commande_user" model="res.groups">
+            <field name="name">Responsable Achat</field>
+
+           <!-- le group sera affiché dans le module catefory purchses management -->
+        </record>
+
+    </data>
+</odoo>
